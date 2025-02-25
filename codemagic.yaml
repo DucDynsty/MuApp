@@ -5,7 +5,6 @@ workflows:
     instance_type: mac_mini_m1
     environment:
       java: 17
-      gradle: wrapper
     scripts:
       - name: Checkout repository
         script: git clone $CM_REPO_CLONE_URL .
@@ -23,9 +22,8 @@ workflows:
             -Pandroid.injected.signing.key.password=$CM_KEY_PASSWORD
     artifacts:
       - app/build/outputs/apk/release/app-release.apk
-    environment_variables:
+secrets:
       CM_KEYSTORE: "123456"
       CM_KEYSTORE_PASSWORD: "123456"
       CM_KEY_ALIAS: "UntrustedKey"
       CM_KEY_PASSWORD: "123456"
-      
