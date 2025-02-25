@@ -1,0 +1,31 @@
+workflows:
+  android-build:
+    name: Build Android APK
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      java: 17
+      gradle: wrapper
+    scripts:
+      - name: Checkout repository
+        script: git clone $CM_REPO_CLONE_URL .
+      - name: Grant execute permission for Gradle
+        script: chmod +x ./gradlew
+      - name: Decode Keystore
+        script: |
+          echo "$CM_KEYSTORE" | base64 --decode > app/buildKey.jks
+      - name: Build APK (Release)
+        script: |
+          ./gradlew assembleRelease \
+            -Pandroid.injected.signing.store.file=app/buildKey.jks \
+            -Pandroid.injected.signing.store.password=$CM_KEYSTORE_PASSWORD \
+            -Pandroid.injected.signing.key.alias=$CM_KEY_ALIAS \
+            -Pandroid.injected.signing.key.password=$CM_KEY_PASSWORD
+    artifacts:
+      - app/build/outputs/apk/release/app-release.apk
+    environment_variables:
+      CM_KEYSTORE: "123456"
+      CM_KEYSTORE_PASSWORD: "123456"
+      CM_KEY_ALIAS: "UntrustedKey"
+      CM_KEY_PASSWORD: "123456"
+      
