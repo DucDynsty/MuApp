@@ -5,7 +5,7 @@ workflows:
     environment:
       java: 17
       android: 
-        sdk: 3
+        sdk: 34
       vars:
         PACKAGE_NAME: "com.mucheng.mucute.client"
       android_signing:
