@@ -8,24 +8,24 @@ workflows:
         PACKAGE_NAME: "com.mucheng.mucute.client"
     scripts:
       - name: Set Gradle permissions
-        script: chmod +x ./gradlew
+        script: chmod +x ./MuCuteClient-main/gradlew
       - name: Set up Android SDK
         script: |
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > ./MuCuteClient-main/local.properties
       - name: Configure signing properties
         script: |
-          echo "RELEASE_STORE_FILE=$(pwd)/buildKey.jks" >> gradle.properties
-          echo "RELEASE_KEY_ALIAS=untrustedkey" >> gradle.properties
-          echo "RELEASE_STORE_PASSWORD=123456" >> gradle.properties
-          echo "RELEASE_KEY_PASSWORD=123456" >> gradle.properties
+          echo "RELEASE_STORE_FILE=$(pwd)/MuCuteClient-main/buildKey.jks" >> ./MuCuteClient-main/gradle.properties
+          echo "RELEASE_KEY_ALIAS=untrustedkey" >> ./MuCuteClient-main/gradle.properties
+          echo "RELEASE_STORE_PASSWORD=123456" >> ./MuCuteClient-main/gradle.properties
+          echo "RELEASE_KEY_PASSWORD=123456" >> ./MuCuteClient-main/gradle.properties
       - name: Clean project
-        script: ./gradlew clean
+        script: ./MuCuteClient-main/gradlew clean
       - name: Get dependencies
-        script: ./gradlew build --stacktrace
+        script: ./MuCuteClient-main/gradlew build --stacktrace
       - name: Assemble APK
-        script: ./gradlew assembleRelease --stacktrace
+        script: ./MuCuteClient-main/gradlew assembleRelease --stacktrace
     artifacts:
-      - app/build/outputs/apk/release/app-release.apk
+      - MuCuteClient-main/app/build/outputs/apk/release/app-release.apk
     publishing:
       email:
         recipients:
