@@ -6,14 +6,18 @@ workflows:
       java: 17
       vars:
         PACKAGE_NAME: "com.mucheng.mucute.client"
-      android_signing:
-        - keystore_reference
     scripts:
       - name: Set Gradle permissions
         script: chmod +x ./gradlew
       - name: Set up Android SDK
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+      - name: Configure signing properties
+        script: |
+          echo "RELEASE_STORE_FILE=$(pwd)/buildKey.jks" >> gradle.properties
+          echo "RELEASE_KEY_ALIAS=untrustedkey" >> gradle.properties
+          echo "RELEASE_STORE_PASSWORD=123456" >> gradle.properties
+          echo "RELEASE_KEY_PASSWORD=123456" >> gradle.properties
       - name: Clean project
         script: ./gradlew clean
       - name: Get dependencies
