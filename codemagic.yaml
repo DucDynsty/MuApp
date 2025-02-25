@@ -8,7 +8,7 @@ workflows:
         PACKAGE_NAME: "com.mucheng.mucute.client"
     scripts:
       - name: Set Gradle permissions
-        script: chmod +x ./MuCuteClient-main/gradlew
+        script: chmod +x ./gradlew
       - name: Set up Android SDK
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > ./MuCuteClient-main/local.properties
